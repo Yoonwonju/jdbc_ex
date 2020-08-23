@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="resources"/>
-	<classpathentry kind="lib" path="F:/workspace/jdbc_ex/lib/ojdbc8-19.7.0.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="D:/workspace/workspace_html/jdbc_programing/jdbc_programing/lib/ojdbc8-19.7.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

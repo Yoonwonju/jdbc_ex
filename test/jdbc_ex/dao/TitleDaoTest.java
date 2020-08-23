@@ -45,22 +45,39 @@ public class TitleDaoTest {
 
 	@Test
 	public void testSelectTitleByNo() {
-		fail("Not yet implemented");
+		System.out.println("testSelectTitleByNo");
+		Title selectTitle = dao.selectTitleByNo(new Title(1));
+		Assert.assertNotNull(selectTitle);
+		
+		System.out.println(selectTitle);
 	}
-
+	
 	@Test
 	public void testInsertTitle() {
-		fail("Not yet implemented");
+		System.out.println("testInsertTitle");
+		Title inserTitle = new Title(6, "인턴");
+		int res = dao.insertTitle(inserTitle);
+		Assert.assertEquals(1, res);
 	}
-
+	
 	@Test
 	public void testUpdateTitle() {
-		fail("Not yet implemented");
+		System.out.println("testUpdateTitle");
+		Title updateTitle = new Title(6, "계약직");
+		int res = dao.updateTitle(updateTitle);
+		Assert.assertEquals(1, res);
+		
+		System.out.println(dao.selectTitleByNo(con, updateTitle));
 	}
-
+	
 	@Test
 	public void testDeleteTitle() {
-		fail("Not yet implemented");
+		System.out.println("testDeleteTitle");
+		Title delTitle = new Title(6);
+		int res = dao.deleteTitle(delTitle);
+		Assert.assertEquals(1, res);
+		
+		System.out.println(dao.selectTitleByNo(con, delTitle));
 	}
 
 }
