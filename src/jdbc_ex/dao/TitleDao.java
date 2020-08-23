@@ -14,4 +14,6 @@ public interface TitleDao {
 	int updateTitle(Title title);
 	
 	int deleteTitle(Title title);
+	
+	Title selectSameTitleEmployeeByTitleNo(Title title);
 }
