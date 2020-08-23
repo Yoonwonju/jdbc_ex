@@ -9,6 +9,8 @@ import java.util.List;
 
 import jdbc_ex.conn.JdbcUtil;
 import jdbc_ex.dao.TitleDao;
+import jdbc_ex.dto.Department;
+import jdbc_ex.dto.Employee;
 import jdbc_ex.dto.Title;
 
 public class TitleDaoImpl implements TitleDao {
@@ -100,6 +102,42 @@ public class TitleDaoImpl implements TitleDao {
 		}catch(SQLException e) {
 			throw new RuntimeException();
 		}
+	}
+	
+	//
+	
+	public Title selectSameTitleEmployeeByTitleNo(Title title) {
+		String sql = "SELECT TITLE_NO, TITLE_NAME, EMP_NO, EMP_NAME, TNO, MANAGER, SALARY, DNO" +
+					" FROM TITLE T JOIN EMPLOYEE E ON T.TITLE_NO = E.TNO" +
+					" WHERE T.TITLE_NO = ?";
+		try(Connection con = JdbcUtil.getConnection(sql);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, title.getNo());
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					Title item = getTitle(rs);
+					if(rs.getInt("EMP_NO") != 0) {
+						List<Employee> list = new ArrayList<Employee>();
+						do {
+							list.add(getEmployee(rs));
+						}while(rs.next());
+						item.setList(list);
+					}
+					return item;
+				}
+			}
+		}
+	}
+
+	private Employee getEmployee(ResultSet rs) {
+		int no = rs.getInt("EMP_NO");
+		String name = rs.getString("EMP_NAME");
+		Title tno = new Title(rs.getInt("TNO"));
+		Employee manager = new Employee(rs.getInt("MANAGER"));
+		int salary = rs.getInt("SALARY");
+		Department dno = new Department(rs.getInt("DNO"));
+		
+		return new Employee(no, name, tno, manager, salary, dno);
 	}
 
 }
